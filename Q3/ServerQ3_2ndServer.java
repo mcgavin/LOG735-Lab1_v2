@@ -2,14 +2,14 @@ package Q3;
 import java.net.*; 
 import java.io.*; 
 
-public class ServerQ3 implements Runnable { 
+public class ServerQ3_2ndServer implements Runnable { 
 	private Socket connection;
 	public static void main(String[] args) throws IOException { 
     
 		ServerSocket serverSocket = null; 
 
 		try { 
-			serverSocket = new ServerSocket(10118); 
+			serverSocket = new ServerSocket(10119); 
         } 
 		catch (IOException e) 
         { 
@@ -23,7 +23,7 @@ public class ServerQ3 implements Runnable {
 		try { 
 			while(true){
 				clientSocket = serverSocket.accept();
-				Runnable runnable = new ServerQ3(clientSocket);
+				Runnable runnable = new ServerQ3_2ndServer(clientSocket);
 		        Thread thread = new Thread(runnable);
 		        thread.start();
 			}
@@ -37,7 +37,7 @@ public class ServerQ3 implements Runnable {
 		serverSocket.close(); 
 	}
 
-	public ServerQ3(Socket clientSocket){
+	public ServerQ3_2ndServer(Socket clientSocket){
 		this.connection = clientSocket;
 	}
 	
@@ -57,8 +57,7 @@ public class ServerQ3 implements Runnable {
         { 
 			System.out.println ("Serveur: " + inputLine);
 			inputLine = inputLine.toUpperCase();
-			//Le serveur ne va pas répondre
-        	//out.println(inputLine);
+        	out.println(inputLine);
         	if (inputLine.equals("Bye.")) 
         		break; 
         } 
