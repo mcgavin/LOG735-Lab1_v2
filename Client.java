@@ -5,6 +5,7 @@ public class Client {
 	public static void main(String[] args) throws IOException {
 
 		//test commit
+		//test2 
 		String serverHostname = new String ("127.0.0.1");
 
         if (args.length > 0)
