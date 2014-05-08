@@ -2,7 +2,7 @@ package Q2;
 import java.io.*;
 import java.net.*;
 
-public class Client {
+public class ClientQ2 {
 	public static void main(String[] args) throws IOException {
 
 		String serverHostname = new String ("127.0.0.1");

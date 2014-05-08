@@ -1,8 +1,8 @@
-package Q2;
+package Q3;
 import java.net.*; 
 import java.io.*; 
 
-public class Server implements Runnable { 
+public class ServerQ3 implements Runnable { 
 	private Socket connection;
 	public static void main(String[] args) throws IOException { 
     
@@ -23,7 +23,7 @@ public class Server implements Runnable {
 		try { 
 			while(true){
 				clientSocket = serverSocket.accept();
-				Runnable runnable = new Server(clientSocket);
+				Runnable runnable = new ServerQ3(clientSocket);
 		        Thread thread = new Thread(runnable);
 		        thread.start();
 			}
@@ -37,9 +37,10 @@ public class Server implements Runnable {
 		serverSocket.close(); 
 	}
 
-	public Server(Socket clientSocket){
+	public ServerQ3(Socket clientSocket){
 		this.connection = clientSocket;
 	}
+	
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
