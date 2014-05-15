@@ -63,7 +63,6 @@ public class ServerQ5 implements Runnable {
 
 		while ((inputLine = in.readLine()) != null) 
         { 
-			incrementNbReq();
 			System.out.println ("Serveur: " + inputLine);
 			inputLine = "#" +incrementNbReq()+" - "+ inputLine.toUpperCase();
 			//Le serveur ne va pas répondre

@@ -41,7 +41,7 @@ public class ClientQ3 {
 				System.out.print ("Entrée: ");
 			}
 		}
-		catch (InterruptedIOException iioe)
+		catch (IOException iioe)
 		{
 			System.err.println ("Remote host timed out during read operation");
 			echoSocket.close();

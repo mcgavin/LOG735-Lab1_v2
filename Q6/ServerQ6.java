@@ -7,14 +7,18 @@ public class ServerQ6 implements Runnable {
 	
 	//http://stackoverflow.com/questions/2120248/how-to-synchronize-a-static-variable-among-threads-running-different-instances-o
 	private static int nbReq = 0;
+	private static PrintWriter interServerWriter;
 	public static synchronized int incrementNbReq() {
 		nbReq++;
+		interServerWriter.println(nbReq);
 		return nbReq;
     }
 	
 	public static void main(String[] args) throws IOException { 
     
 		ServerSocket serverSocket = null; 
+		
+		interServerWriter = interServerConnection();
 
 		try { 
 			serverSocket = new ServerSocket(10118); 
@@ -63,11 +67,17 @@ public class ServerQ6 implements Runnable {
 
 		while ((inputLine = in.readLine()) != null) 
         { 
-			incrementNbReq();
 			System.out.println ("Serveur: " + inputLine);
-			inputLine = "#" +incrementNbReq()+" - "+ inputLine.toUpperCase();
-			//Le serveur ne va pas répondre
-        	//out.println(inputLine);
+			if(nbReq == 3){
+			//Le serveur ne va pas répondre apres 2 messages
+			
+				//out.println(inputLine); do nothing and crash
+				}
+			else{
+				inputLine = "#" +incrementNbReq()+" - "+ inputLine.toUpperCase();
+				out.println(inputLine);
+			}
+			
         	if (inputLine.equals("Bye.")) 
         		break; 
         } 
@@ -80,4 +90,30 @@ public class ServerQ6 implements Runnable {
 			e.printStackTrace();
 		} 
 	} 
+	
+	private static PrintWriter interServerConnection(){
+		//10.196.113.186
+		String serverHostname = new String ("127.0.0.1");
+
+		System.out.println ("Essai de se connecter à l'hôte " +
+				serverHostname + " au port 10119.");
+
+		Socket echoSocket = null;
+		PrintWriter out = null;
+
+		try {
+			echoSocket = new Socket(serverHostname, 10119);
+			echoSocket.setSoTimeout(10000);
+			out = new PrintWriter(echoSocket.getOutputStream(), true);
+			
+		} catch (UnknownHostException e) {
+			System.err.println("Hôte inconnu: " + serverHostname);
+			System.exit(1);
+		} catch (IOException e) {
+			System.err.println("Ne pas se connecter au serveur: " + serverHostname);
+			System.exit(1);
+		}
+		out.println("Je suis le serveur");
+		return out;
+	}
 } 
