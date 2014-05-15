@@ -1,7 +1,11 @@
 package Q3;
 import java.net.*; 
 import java.io.*; 
-
+/**
+ * Cette classe client permet de gèrer les crash/timeout du server auquel le client est connecté
+ * @author Alexandre Richard, Mathieu Lavallee, Mathieu Ferchaud
+ *
+ */
 public class ServerQ3_2ndServer implements Runnable { 
 	private Socket connection;
 	public static void main(String[] args) throws IOException { 

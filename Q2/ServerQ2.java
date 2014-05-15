@@ -1,7 +1,11 @@
 package Q2;
 import java.net.*; 
 import java.io.*; 
-
+/**
+ * Server implémentant Runnable afin de pouvoir accepter plusieurs client à la fois.
+ * @author Alexandre Richard, Mathieu Lavallee, Mathieu Ferchaud
+ *
+ */
 public class ServerQ2 implements Runnable { 
 	private Socket connection;
 	public static void main(String[] args) throws IOException { 
@@ -19,7 +23,8 @@ public class ServerQ2 implements Runnable {
 
 		Socket clientSocket = null; 
 		System.out.println ("Le serveur est en marche, Attente de la connexion.....");
-
+		
+		//Boucle qui gère la création de thread pour chaques clients qui se connecte
 		try { 
 			while(true){
 				clientSocket = serverSocket.accept();
@@ -41,9 +46,9 @@ public class ServerQ2 implements Runnable {
 		this.connection = clientSocket;
 	}
 	
+	//Chaque thread va exécuter le code ci-dessous.
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		System.out.println ("connexion réussie");
 		System.out.println ("Attente de l'entrée.....");
 		try {

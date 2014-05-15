@@ -1,10 +1,14 @@
 package Q3;
 import java.io.*;
 import java.net.*;
-
+/**
+ * Cette classe client permet de gèrer les crash/timeout du server auquel le client est connecté
+ * @author Alexandre Richard, Mathieu Lavallee, Mathieu Ferchaud
+ *
+ */
 public class ClientQ3 {
 	public static void main(String[] args) throws IOException {
-
+		//Connection normal vers le server 1 (initial)
 		//10.196.113.186
 		String serverHostname = new String ("127.0.0.1");
 
@@ -17,8 +21,10 @@ public class ClientQ3 {
 		PrintWriter out = null;
 		BufferedReader in = null;
 		String userInput = "";
+		
 		try {
 			echoSocket = new Socket(serverHostname, 10118);
+			//Si on recoit pas de message d'ici 10 secondes, on timeout le socket.
 			echoSocket.setSoTimeout(10000);
 			out = new PrintWriter(echoSocket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
@@ -30,7 +36,7 @@ public class ClientQ3 {
 			System.exit(1);
 		}
 
-
+		//Exécution normal tant que le serveur 1 reste fonctionnel.
 		BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 		try{
 			
@@ -41,12 +47,14 @@ public class ClientQ3 {
 				System.out.print ("Entrée: ");
 			}
 		}
+		//IOException permet de faire la gestion de toutes les erreurs dû a un serveur qui crash/timeout.
 		catch (IOException iioe)
 		{
+			//On ferme la connection
 			System.err.println ("Remote host timed out during read operation");
 			echoSocket.close();
 			
-			//code connection new serveur
+			//On se connecte au nouveau serveur
 			System.out.println ("Essai de se connecter à l'hôte " +
 					serverHostname + " au port 10119.");
 			try {
@@ -63,9 +71,7 @@ public class ClientQ3 {
 				System.err.println("Ne pas se connecter au serveur: " + serverHostname);
 				System.exit(1);
 			}
-
-			//BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-			
+			//Éxécution normal sur le nouveau serveur.
 			System.out.print ("Entrée: ");
 			while ((userInput = stdIn.readLine()) != null) {
 				out.println(userInput);
