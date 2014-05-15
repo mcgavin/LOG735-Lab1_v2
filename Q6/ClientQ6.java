@@ -75,6 +75,5 @@ public class ClientQ6 {
 		stdIn.close();
 		echoSocket.close();
 	}
-	
 }
 

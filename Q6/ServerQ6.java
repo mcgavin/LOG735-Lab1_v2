@@ -4,6 +4,14 @@ import java.io.*;
 
 public class ServerQ6 implements Runnable { 
 	private Socket connection;
+	
+	//http://stackoverflow.com/questions/2120248/how-to-synchronize-a-static-variable-among-threads-running-different-instances-o
+	private static int nbReq = 0;
+	public static synchronized int incrementNbReq() {
+		nbReq++;
+		return nbReq;
+    }
+	
 	public static void main(String[] args) throws IOException { 
     
 		ServerSocket serverSocket = null; 
@@ -55,8 +63,9 @@ public class ServerQ6 implements Runnable {
 
 		while ((inputLine = in.readLine()) != null) 
         { 
+			incrementNbReq();
 			System.out.println ("Serveur: " + inputLine);
-			inputLine = inputLine.toUpperCase();
+			inputLine = "#" +incrementNbReq()+" - "+ inputLine.toUpperCase();
 			//Le serveur ne va pas répondre
         	//out.println(inputLine);
         	if (inputLine.equals("Bye.")) 
