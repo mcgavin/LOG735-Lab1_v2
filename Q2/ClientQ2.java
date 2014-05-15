@@ -1,7 +1,11 @@
 package Q2;
 import java.io.*;
 import java.net.*;
-
+/**
+ * Copie identique à Client.java par défaut
+ * @author Alexandre Richard, Mathieu Lavallee, Mathieu Ferchaud
+ *
+ */
 public class ClientQ2 {
 	public static void main(String[] args) throws IOException {
 

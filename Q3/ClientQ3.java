@@ -20,7 +20,7 @@ public class ClientQ3 {
 		Socket echoSocket = null;
 		PrintWriter out = null;
 		BufferedReader in = null;
-		String userInput = "";
+		String userInput = "";t
 		
 		try {
 			echoSocket = new Socket(serverHostname, 10118);
