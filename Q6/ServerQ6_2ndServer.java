@@ -2,8 +2,16 @@ package Q6;
 import java.net.*; 
 import java.io.*; 
 
-public class ServerQ3_2ndServer implements Runnable { 
+public class ServerQ6_2ndServer implements Runnable { 
 	private Socket connection;
+	
+	//http://stackoverflow.com/questions/2120248/how-to-synchronize-a-static-variable-among-threads-running-different-instances-o
+	private static int nbReq = 0;
+	public static synchronized int incrementNbReq() {
+		nbReq++;
+		return nbReq;
+    }
+	
 	public static void main(String[] args) throws IOException { 
     
 		ServerSocket serverSocket = null; 
@@ -37,7 +45,7 @@ public class ServerQ3_2ndServer implements Runnable {
 		serverSocket.close(); 
 	}
 
-	public ServerQ3_2ndServer(Socket clientSocket){
+	public ServerQ6_2ndServer(Socket clientSocket){
 		this.connection = clientSocket;
 	}
 	
@@ -56,7 +64,8 @@ public class ServerQ3_2ndServer implements Runnable {
 		while ((inputLine = in.readLine()) != null) 
         { 
 			System.out.println ("Serveur: " + inputLine);
-			inputLine = inputLine.toUpperCase();
+			//inputLine = inputLine.toUpperCase();
+			inputLine = "#" +incrementNbReq()+" - "+ inputLine.toUpperCase();
         	out.println(inputLine);
         	if (inputLine.equals("Bye.")) 
         		break; 

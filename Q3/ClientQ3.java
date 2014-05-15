@@ -16,7 +16,7 @@ public class ClientQ3 {
 		Socket echoSocket = null;
 		PrintWriter out = null;
 		BufferedReader in = null;
-
+		String userInput = "";
 		try {
 			echoSocket = new Socket(serverHostname, 10118);
 			echoSocket.setSoTimeout(10000);
@@ -33,7 +33,7 @@ public class ClientQ3 {
 
 		BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 		try{
-			String userInput;
+			
 			System.out.print ("Entrée: ");
 			while ((userInput = stdIn.readLine()) != null) {
 				out.println(userInput);
@@ -53,6 +53,9 @@ public class ClientQ3 {
 				echoSocket = new Socket(serverHostname, 10119);
 				out = new PrintWriter(echoSocket.getOutputStream(), true);
 				in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+				//On refait la commande du serveur qui a crash sur le nouveau serveur
+				out.println(userInput);
+				System.out.println("echo: " + in.readLine());
 			} catch (UnknownHostException e) {
 				System.err.println("Hôte inconnu: " + serverHostname);
 				System.exit(1);
@@ -62,7 +65,7 @@ public class ClientQ3 {
 			}
 
 			//BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-			String userInput;
+			
 			System.out.print ("Entrée: ");
 			while ((userInput = stdIn.readLine()) != null) {
 				out.println(userInput);
