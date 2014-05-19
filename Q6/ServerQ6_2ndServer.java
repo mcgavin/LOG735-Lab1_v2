@@ -1,7 +1,12 @@
 package Q6;
 import java.net.*; 
 import java.io.*; 
-
+/**
+ * Cette classe client permet de gèrer les crash/timeout du server auquel le client est connecté. Implémentation de la variable syncro entre
+ * 2 serveurs. Le serveur 1 envoit le numéro de "transaction" ou on est rendu. Lorsque serveur 1 crash, on connait le numéro.
+ * @author Alexandre Richard, Mathieu Lavallee, Mathieu Ferchaud
+ *
+ */
 public class ServerQ6_2ndServer implements Runnable { 
 	private Socket connection;
 
@@ -11,7 +16,7 @@ public class ServerQ6_2ndServer implements Runnable {
 		nbReq++;
 		return nbReq;
 	}
-
+	//Le serveur 1 envoit le numéro de "transaction" ou on est rendu. Lorsque serveur 1 crash, on connait le numéro.
 	public static synchronized void setNbReq(int nbreq) {
 		nbReq = nbreq;
 	}
@@ -31,7 +36,7 @@ public class ServerQ6_2ndServer implements Runnable {
 
 		Socket clientSocket = null; 
 		System.out.println ("Le serveur est en marche, Attente de la connexion.....");
-
+		//Boucle qui gère la création de thread pour chaques clients qui se connecte
 		try { 
 			while(true){
 				clientSocket = serverSocket.accept();
@@ -53,10 +58,9 @@ public class ServerQ6_2ndServer implements Runnable {
 		this.connection = clientSocket;
 	}
 
-
+	//Chaque thread va exécuter le code ci-dessous.
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		System.out.println ("connexion réussie");
 		System.out.println ("Attente de l'entrée.....");
 		try {
@@ -65,6 +69,7 @@ public class ServerQ6_2ndServer implements Runnable {
 			String inputLine;
 			inputLine = in.readLine();
 			
+			//Si on recoit le message "Je suis le serveur", on appelle setNbReq sur les int qu'on recoit
 			if(inputLine.equals("Je suis le serveur")){
 				//server connection
 				
@@ -72,10 +77,11 @@ public class ServerQ6_2ndServer implements Runnable {
 					setNbReq(Integer.parseInt(inputLine));
 				}
 			}
+			//Sinon, on fait la gestion normal d'un client qui envoit des mots.
 			else {
-				// client
+				//
 				System.out.println ("Serveur: " + inputLine);
-				//inputLine = inputLine.toUpperCase();
+				//On appelle la methode incrementNbReq() afin d'augementer la variable syncro
 				inputLine = "#" +incrementNbReq()+" - "+ inputLine.toUpperCase();
 				out.println(inputLine);
 				
@@ -83,7 +89,7 @@ public class ServerQ6_2ndServer implements Runnable {
 				{ 
 
 					System.out.println ("Serveur: " + inputLine);
-					//inputLine = inputLine.toUpperCase();
+					//On appelle la methode incrementNbReq() afin d'augementer la variable syncro
 					inputLine = "#" +incrementNbReq()+" - "+ inputLine.toUpperCase();
 					out.println(inputLine);
 					if (inputLine.equals("Bye.")) 

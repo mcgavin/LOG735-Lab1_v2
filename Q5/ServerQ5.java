@@ -1,7 +1,11 @@
 package Q5;
 import java.net.*; 
 import java.io.*; 
-
+/**
+ * Server implémentant Runnable afin de pouvoir accepter plusieurs client à la fois + implémentation de la variable syncro entre 2 serveurs
+ * @author Alexandre Richard, Mathieu Lavallee, Mathieu Ferchaud
+ *
+ */
 public class ServerQ5 implements Runnable { 
 	private Socket connection;
 	
@@ -27,7 +31,8 @@ public class ServerQ5 implements Runnable {
 
 		Socket clientSocket = null; 
 		System.out.println ("Le serveur est en marche, Attente de la connexion.....");
-
+		
+		//Boucle qui gère la création de thread pour chaques clients qui se connecte
 		try { 
 			while(true){
 				clientSocket = serverSocket.accept();
@@ -45,14 +50,14 @@ public class ServerQ5 implements Runnable {
 		serverSocket.close(); 
 	}
 
+	
 	public ServerQ5(Socket clientSocket){
 		this.connection = clientSocket;
 	}
 	
-	
+	//Chaque thread va exécuter le code ci-dessous.
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		System.out.println ("connexion réussie");
 		System.out.println ("Attente de l'entrée.....");
 		try {
@@ -64,8 +69,9 @@ public class ServerQ5 implements Runnable {
 		while ((inputLine = in.readLine()) != null) 
         { 
 			System.out.println ("Serveur: " + inputLine);
+			//On appelle la methode incrementNbReq() afin d'augementer la variable syncro
 			inputLine = "#" +incrementNbReq()+" - "+ inputLine.toUpperCase();
-			//Le serveur ne va pas répondre
+			//Le serveur ne va pas répondre. Simulation de crash
         	//out.println(inputLine);
         	if (inputLine.equals("Bye.")) 
         		break; 

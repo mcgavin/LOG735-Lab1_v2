@@ -1,7 +1,12 @@
 package Q5;
 import java.net.*; 
 import java.io.*; 
-
+/**
+ * Cette classe client permet de gèrer les crash/timeout du server auquel le client est connecté. Implémentation de la variable syncro entre
+ * 2 serveurs
+ * @author Alexandre Richard, Mathieu Lavallee, Mathieu Ferchaud
+ *
+ */
 public class ServerQ5_2ndServer implements Runnable { 
 	private Socket connection;
 	
@@ -27,7 +32,7 @@ public class ServerQ5_2ndServer implements Runnable {
 
 		Socket clientSocket = null; 
 		System.out.println ("Le serveur est en marche, Attente de la connexion.....");
-
+		//Boucle qui gère la création de thread pour chaques clients qui se connecte
 		try { 
 			while(true){
 				clientSocket = serverSocket.accept();
@@ -49,10 +54,9 @@ public class ServerQ5_2ndServer implements Runnable {
 		this.connection = clientSocket;
 	}
 	
-	
+	//Chaque thread va exécuter le code ci-dessous.
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		System.out.println ("connexion réussie");
 		System.out.println ("Attente de l'entrée.....");
 		try {
@@ -64,7 +68,7 @@ public class ServerQ5_2ndServer implements Runnable {
 		while ((inputLine = in.readLine()) != null) 
         { 
 			System.out.println ("Serveur: " + inputLine);
-			//inputLine = inputLine.toUpperCase();
+			//On appelle la methode incrementNbReq() afin d'augementer la variable syncro
 			inputLine = "#" +incrementNbReq()+" - "+ inputLine.toUpperCase();
         	out.println(inputLine);
         	if (inputLine.equals("Bye.")) 

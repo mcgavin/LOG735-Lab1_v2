@@ -24,6 +24,7 @@ public class ServerQ3_2ndServer implements Runnable {
 		Socket clientSocket = null; 
 		System.out.println ("Le serveur est en marche, Attente de la connexion.....");
 
+		//Boucle qui gère la création de thread pour chaques clients qui se connecte
 		try { 
 			while(true){
 				clientSocket = serverSocket.accept();
@@ -45,10 +46,9 @@ public class ServerQ3_2ndServer implements Runnable {
 		this.connection = clientSocket;
 	}
 	
-	
+	//Chaque thread va exécuter le code ci-dessous.
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		System.out.println ("connexion réussie");
 		System.out.println ("Attente de l'entrée.....");
 		try {
@@ -70,7 +70,6 @@ public class ServerQ3_2ndServer implements Runnable {
 		connection.close();
 		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	} 

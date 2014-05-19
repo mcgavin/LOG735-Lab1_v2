@@ -1,7 +1,12 @@
 package Q6;
 import java.net.*; 
 import java.io.*; 
-
+/**
+ * Server implémentant Runnable afin de pouvoir accepter plusieurs client à la fois + implémentation de la variable syncro entre 2 serveurs
+ * + Connection vers 2nd serveur
+ * @author Alexandre Richard, Mathieu Lavallee, Mathieu Ferchaud
+ *
+ */
 public class ServerQ6 implements Runnable { 
 	private Socket connection;
 	
@@ -17,7 +22,7 @@ public class ServerQ6 implements Runnable {
 	public static void main(String[] args) throws IOException { 
     
 		ServerSocket serverSocket = null; 
-		
+		//On se connecte au serveur 2 comme si on était un client "spécial"
 		interServerWriter = interServerConnection();
 
 		try { 
@@ -31,7 +36,8 @@ public class ServerQ6 implements Runnable {
 
 		Socket clientSocket = null; 
 		System.out.println ("Le serveur est en marche, Attente de la connexion.....");
-
+		
+		//Boucle qui gère la création de thread pour chaques clients qui se connecte
 		try { 
 			while(true){
 				clientSocket = serverSocket.accept();
@@ -53,10 +59,9 @@ public class ServerQ6 implements Runnable {
 		this.connection = clientSocket;
 	}
 	
-	
+	//Chaque thread va exécuter le code ci-dessous.
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		System.out.println ("connexion réussie");
 		System.out.println ("Attente de l'entrée.....");
 		try {
@@ -91,6 +96,7 @@ public class ServerQ6 implements Runnable {
 		} 
 	} 
 	
+	//On se connecte au serveur 2 comme si on était un client "spécial" afin d'envoit les numéros de transactions
 	private static PrintWriter interServerConnection(){
 		//10.196.113.186
 		String serverHostname = new String ("127.0.0.1");
