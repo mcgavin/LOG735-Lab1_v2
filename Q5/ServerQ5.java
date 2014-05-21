@@ -1,11 +1,24 @@
 package Q5;
 import java.net.*; 
 import java.io.*; 
-/**
- * Server implémentant Runnable afin de pouvoir accepter plusieurs client à la fois + implémentation de la variable syncro entre 2 serveurs
- * @author Alexandre Richard, Mathieu Lavallee, Mathieu Ferchaud
- *
- */
+
+/****************************************************** 
+Cours : LOG735 
+Session : Été 2014 
+Groupe : 01 
+Projet : Laboratoire #1 
+Étudiants : Alexandre Richard 
+			Mathieu Lavallee
+			Mathieu Ferchaud
+Code(s) perm. : RICA10028806
+				Lavm04108908 
+				FERM23018803
+Date création : 12 MAI 2014
+Date dern. modif. : 19 MAI 2014
+****************************************************** 
+Server implémentant Runnable afin de pouvoir accepter plusieurs client à la fois + implémentation de la variable syncro entre 2 serveurs
+
+******************************************************/ 
 public class ServerQ5 implements Runnable { 
 	private Socket connection;
 	

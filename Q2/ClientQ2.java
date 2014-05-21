@@ -1,11 +1,25 @@
 package Q2;
 import java.io.*;
 import java.net.*;
-/**
- * Copie identique à Client.java par défaut
- * @author Alexandre Richard, Mathieu Lavallee, Mathieu Ferchaud
- *
- */
+
+/****************************************************** 
+Cours : LOG735 
+Session : Été 2014 
+Groupe : 01 
+Projet : Laboratoire #1 
+Étudiants : Alexandre Richard 
+			Mathieu Lavallee
+			Mathieu Ferchaud
+Code(s) perm. : RICA10028806
+				Lavm04108908 
+				FERM23018803
+Date création : 12 MAI 2014
+Date dern. modif. : 19 MAI 2014
+****************************************************** 
+Copie identique à Client.java par défaut
+
+******************************************************/ 
+
 public class ClientQ2 {
 	public static void main(String[] args) throws IOException {
 
